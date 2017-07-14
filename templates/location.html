@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="jumbotron">
+    <h1>Get Your Location on Google Map</h1>
+
+    <form class="form-signin" action="{{ url_for('get_location') }}" method="post">
+        <label for="inputLatitude" class="sr-only">Enter Latitude</label>
+        <input type="name" name="inputLatitude" id="latitude" class="form-control" placeholder="Latitude"
+               value="{{ latitude }}" required autofocus>
+        <label for="inputLongitude" class="sr-only">Enter Longitude</label>
+        <input type="name" name="inputLongitude" id="longitude" class="form-control" placeholder="Longitude"
+               value="{{ longitude }}" required autofocus>
+        <input type="submit"/>
+    </form>
+</div>
+<br>
+<br>
+
+<div id="map"></div>
+
+<script>
+    function initMap() {
+        var latitude = {{ latitude }};
+        var longitude = {{ longitude }};
+        var position = {lat: latitude, lng: longitude};
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 16,
+            center: position
+        });
+        var marker = new google.maps.Marker({
+            position: position,
+            map: map
+        });
+    }
+
+</script>
+
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAMeO0OnMsDzqmglDQVa6hhoR8moavPFIM&callback=initMap">
+</script>
+</body>
+</html>
